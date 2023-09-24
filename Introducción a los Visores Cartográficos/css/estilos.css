@@ -1,0 +1,31 @@
+body{
+  overflow: hidden;
+  margin: 0;
+  font-family: 'Catamaran', sans-serif;
+}
+
+#map { 
+  height: 85vh; 
+}
+
+header{
+  height: 15vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  background: #333;
+  color: white;
+}
+
+header .logo{
+  height: 12vh;
+  margin: 0 4vh;
+  display: inline-block;
+}
+
+header h1{
+  margin: 0;
+  display: inline-block;
+}
