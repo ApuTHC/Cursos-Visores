@@ -1,0 +1,80 @@
+body{
+  overflow: hidden;
+  margin: 0;
+  font-family: 'Catamaran', sans-serif;
+}
+
+#map { 
+  height: 85vh; 
+}
+
+header{
+  height: 15vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  background: #333;
+  color: white;
+}
+
+header .logo{
+  height: 12vh;
+  margin: 0 4vh;
+  display: inline-block;
+}
+
+header h1{
+  margin: 0;
+  display: inline-block;
+}
+
+.leaflet-container {
+  font-family: 'Catamaran', sans-serif;
+}
+
+.leaflet-sidebar-header {
+  background-color: #333; 
+}
+
+.leaflet-sidebar-tabs > li.active, .leaflet-sidebar-tabs > ul > li.active {
+  background-color: #333; 
+} 
+
+#capasContent {
+  height: 75vh;
+}
+
+.leaflet-controllable-legend-body {
+  height: 100%;
+  max-height: none;
+}
+
+.leaflet-control-basemapsSwitcher {
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.basemapImg {
+  margin: 10px 5px;
+  transform: scale(1.1);
+}
+
+.basemapImg:hover {
+  transform: scale(1.15);
+  transition: all 0.5s ease;
+}
+
+#buscadorContent {
+  height: 75vh;
+}
+
+.fa-magnifying-glass-location{
+  font-size: 15px;
+  margin-right: 5px;
+}
+
+#buscadorContent .result-item{
+  border-bottom: 1px dotted #0000003b;
+}
