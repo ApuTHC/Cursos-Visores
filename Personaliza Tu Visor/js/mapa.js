@@ -2,7 +2,7 @@
 (function() {
   // Declaramos una variable global para el mapa
   var map;
-  var contador = 0;
+  
   // Esperamos a que el documento esté listo
   $(document).ready(function () {
     // Inicializamos el mapa en una posición y con un zoom determinados
@@ -12,9 +12,9 @@
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
-
+    // Creamos un marcador y lo añadimos al mapa
     var estacion_san_antonio = L.marker([6.247177, -75.569686]).addTo(map).bindPopup("<b>Estación San Antonio</b>");
-
+    // Creamos un polígono definiendo sus estilos y lo añadimos al mapa
     var parque_norte = L.polygon([
       [6.275041,-75.569252],
       [6.271726,-75.570164],
@@ -32,7 +32,7 @@
       fillOpacity: 0.5,
     }).addTo(map).bindPopup("<b>Soy el Parque Norte</b>");
 
-
+    // Creamos un geojson que representa un polígono
     var geojson_estadio = {
       "type": "Feature",
       "properties": {
@@ -55,19 +55,15 @@
         ]
       }
     }
-
+    // Creamos una capa a partir del geojson anterior y la añadimos al mapa
     var estadio = L.geoJSON(geojson_estadio).addTo(map).bindPopup("<b>Estadio Atanasio Girardot</b>");
 
+    // Creamos un mapa base satelital de ESRI
     var imagery = L.esri.basemapLayer('Imagery');
 
+    /* <------------------- Barra Lateral -------------------> */
 
-    const overlays = [
-      {name: 'Parque Norte', layer: parque_norte},
-      {name: 'Estación', layer: estacion_san_antonio},
-    ];
-    const legend = L.multiControl(overlays, {position:'topright', label: 'Control de capas'}).addTo(map);
-    
-
+    // Inicializamos la barra lateral y la añadimos al mapa
     sidebar = L.control.sidebar({
       autopan: false,       // whether to maintain the centered map point when opening the sidebar
       closeButton: true,    // whether t add a close button to the panes
@@ -75,13 +71,29 @@
       position: 'left',     // left or right
     }).addTo(map);
 
-    $("#capasContent").append($(legend._container).find(".leaflet-controllable-legend-body"));
-    $(legend._container).remove();
 
+    /* <------------------- Control de Capas -------------------> */
+
+    // Creamos un objeto con las capas y sus nombres que queremos que aparezcan en el control de capas
+    const overlays = [
+      {name: 'Parque Norte', layer: parque_norte},
+      {name: 'Estación', layer: estacion_san_antonio},
+    ];
+    // Creamos el control de capas y lo añadimos al mapa
+    const legend = L.multiControl(overlays, {position:'topright', label: 'Control de capas'}).addTo(map);
+    
+    // Añadimos el contenido del control de capas a la barra lateral
+    $("#capasContent").append($(legend._container).find(".leaflet-controllable-legend-body"));
+    // Borramos el contenedor del control de capas del mapa
+    $(legend._container).remove();
+    // Añadimos la capa de estadio al control de capas
     legend.addOverlay({name: 'Estadio', layer: estadio});
 
 
-    const basemaps = new L.basemapsSwitcher([
+    /* <------------------- Control de Mapa Base -------------------> */
+
+    // Creamos un array con los objetos que contengan los mapas base, imagenes y nombres que queremos que aparezcan en el control de mapas base
+    const basemaps_array = [
       {
         layer: osm, //DEFAULT MAP
         icon: 'img/img1.PNG',
@@ -89,15 +101,8 @@
       },
       {
         layer: imagery,
-        icon: 'img/img4.PNG',
-        name: 'Imagery ESRI'
-      },
-      {
-        layer: L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',{
-          attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-        }),
         icon: 'img/img2.PNG',
-        name: 'Stadia Maps'
+        name: 'Imagery ESRI'
       },
       {
         layer: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
@@ -106,13 +111,28 @@
         icon: 'img/img3.PNG',
         name: 'OpenTopoMap'
       },
-    ], { position: 'topright' }).addTo(map);
-    
+      {
+        layer: L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
+          attribution: '© Google'
+        }),
+        icon: 'img/img4.PNG',
+        name: 'Google Maps'
+      },
+    ];
 
+    // Creamos el control de mapas base y lo añadimos al mapa
+    const basemaps = new L.basemapsSwitcher(basemaps_array, { position: 'topright' }).addTo(map);
+    
+    // Añadimos el contenido del control de mapas base a la barra lateral
     $("#basemapContent").append($(basemaps._container));
+    // Removemos la clase que oculta los mapabase
     $(basemaps._container).find(".basemapImg").removeClass("hidden");
 
 
+
+    /* <------------------- Control de Herramienta de Dibujo -------------------> */
+
+    // Creamos el control de dibujo y lo añadimos al mapa
     map.pm.addControls({
       position: 'topright',
       drawMarker: true,
@@ -124,31 +144,46 @@
       drawCircleMarker: false,
       drawText: false,
 
-      editMode: false,
+      editMode: true,
       dragMode:true,
       cutPolygon:false,
       removalMode: false,
       rotateMode: false
     });
 
+    // Declaramos una variable de contador de capas creadas
+    var contador = 1;
+
+    // Creamos una función que se ejecutará cada vez que se cree una nueva capa
     map.on('pm:create', function (e) {
+        // Obtenemos la capa creada y su GeoJSON
         const layer = e.layer;
         const geojson = layer.toGeoJSON();
         console.log(geojson);
+        // Creamos un nombre para la capa e incrementamos el contador de capas creadas
         const nombre = layer.pm._shape + " " + contador;
         contador++;
+        // Añadimos la capa creada al control de capas
         legend.addOverlay({name: nombre, layer: layer});
     });
 
-    searchCtrl = L.control.fuseSearch()
-    searchCtrl.addTo(map);
 
+    /* <------------------- Control de Herramienta de Busqueda -------------------> */
+
+    // Creamos el control de búsqueda y lo añadimos al mapa
+    searchCtrl = L.control.fuseSearch().addTo(map);
+
+
+    // Añadimos el contenido del control de búsqueda a la barra lateral
     $("#buscadorContent").append($(".leaflet-fusesearch-panel .content"));
+    // Removemos el botón y contenedor del control de búsqueda del mapa
     $(searchCtrl._container).remove();
+    // Añadimos un ícono de búsqueda al control de búsqueda
     $(".content .header").prepend('<i class="fa-solid fa-magnifying-glass-location"></i>');
+    // Removemos el botón de cerrar del control de búsqueda
     $(".content .header .close").remove();
 
-
+    // Creamos la capa de Municipio de Antioquia
     const muni = L.geoJson(municipios,{
       onEachFeature: function (feature, layer) {
         feature.layer = layer;
@@ -162,14 +197,21 @@
       }
     });
 
-    legend.addOverlay({name: 'Municipio', layer: muni});
+    // Añadimos la capa de municipio al control de capas
+    legend.addOverlay({name: 'Municipios', layer: muni});
 
+    // Añadimos la capa de municipio al control de búsqueda con los campos que queremos filtrar y que se muestrarán en la busqueda
     searchCtrl.indexFeatures(muni.toGeoJSON(), ['MPIO_NOMBR', 'COD_MPIO', 'TERRIT_CAR', 'ZONA']);
 		
     
+    /* <------------------- Control de Herramienta de MiniMapa -------------------> */
+
+    // Creamos el mapa base para el minimapa
     var osm2 = new L.TileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {minZoom: 0, maxZoom: 13, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' });
+    // Se crean los estilos para el rectangulo y la sombra que representa el area visible en el minimapa
     var rect1 = {color: "#ff1100", weight: 3};
 		var rect2 = {color: "#0000AA", weight: 1, opacity:0, fillOpacity:0};
+    // Creamos el control de minimapa y lo añadimos al mapa
 		var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true, aimingRectOptions : rect1, shadowRectOptions: rect2}).addTo(map);
 
 

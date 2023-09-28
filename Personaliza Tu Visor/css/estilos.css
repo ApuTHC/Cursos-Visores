@@ -43,7 +43,7 @@ header h1{
 } 
 
 #capasContent {
-  height: 75vh;
+  height: 74vh;
 }
 
 .leaflet-controllable-legend-body {
@@ -58,7 +58,7 @@ header h1{
 
 .basemapImg {
   margin: 10px 5px;
-  transform: scale(1.1);
+  text-align: center;
 }
 
 .basemapImg:hover {
@@ -77,4 +77,5 @@ header h1{
 
 #buscadorContent .result-item{
   border-bottom: 1px dotted #0000003b;
+  cursor: pointer;
 }
