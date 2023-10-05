@@ -1,0 +1,140 @@
+body{
+  overflow: hidden;
+  margin: 0;
+  font-family: 'Catamaran', sans-serif;
+}
+
+#map { 
+  height: 85vh; 
+}
+
+header{
+  height: 15vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  background: #333;
+  color: white;
+}
+
+header .logo{
+  height: 12vh;
+  margin: 0 4vh;
+  display: inline-block;
+}
+
+header h1{
+  margin: 0;
+  display: inline-block;
+}
+
+.leaflet-container {
+  font-family: 'Catamaran', sans-serif;
+}
+
+.leaflet-sidebar-header {
+  background-color: #333; 
+}
+
+.leaflet-sidebar-tabs > li.active, .leaflet-sidebar-tabs > ul > li.active {
+  background-color: #333; 
+} 
+
+#capasContent {
+  height: 74vh;
+}
+
+.leaflet-controllable-legend-body {
+  height: 100%;
+  max-height: none;
+}
+
+.leaflet-control-basemapsSwitcher {
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.basemapImg {
+  margin: 10px 5px;
+  text-align: center;
+}
+
+.basemapImg:hover {
+  transform: scale(1.15);
+  transition: all 0.5s ease;
+}
+
+#buscadorContent {
+  height: 75vh;
+}
+
+.fa-magnifying-glass-location{
+  font-size: 15px;
+  margin-right: 5px;
+}
+
+#buscadorContent .result-item{
+  border-bottom: 1px dotted #0000003b;
+  cursor: pointer;
+}
+
+
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.form-control {
+  display: block;
+  width: 80%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn-comun {
+  display: inline-block;
+  font-weight: 400;
+  color: #333;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn-comun {
+  color: #333;
+  background: #ffffff;
+  border-color: #333;
+}
+.btn-comun:hover {
+  color: #ffffff;
+  background: #333;
+  border-color: #333;
+}
