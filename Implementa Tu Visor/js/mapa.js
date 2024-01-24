@@ -6,12 +6,7 @@ var miApp = {};
   var map;
 
   const firebaseConfig = {
-    apiKey: "AIzaSyAsjvJYSghB22XRleoOkLuLmPJvgeXgs7Y",
-      authDomain: "cursovisorescarto.firebaseapp.com",
-      projectId: "cursovisorescarto",
-      storageBucket: "cursovisorescarto.appspot.com",
-      messagingSenderId: "429865193788",
-      appId: "1:429865193788:web:0ade5910dc1f990eac0e39"
+    //Para que funcione el visor debe llenar estos datos
   };
 
   const app = firebase.initializeApp(firebaseConfig);
