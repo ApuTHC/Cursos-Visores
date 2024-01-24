@@ -1,0 +1,102 @@
+body{
+  overflow: hidden;
+  margin: 0;
+  font-family: 'Rubik', sans-serif;
+}
+
+#map { 
+  height: 85vh; 
+}
+
+header{
+  height: 15vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  background: #247461;
+  color: white;
+}
+
+header .logo{
+  height: 12vh;
+  margin: 0 4vh;
+  display: inline-block;
+}
+
+header h1{
+  margin: 0;
+  display: inline-block;
+}
+
+
+
+.leaflet-container {
+  font-family: 'Catamaran', sans-serif;
+}
+
+.leaflet-sidebar-header {
+  background-color: #247461; 
+}
+
+.leaflet-sidebar-tabs > li.active, .leaflet-sidebar-tabs > ul > li.active {
+  background-color: #247461; 
+} 
+
+
+
+.leaflet-controllable-legend-body {
+  height: 100%;
+  max-height: none;
+}
+
+.leaflet-control-basemapsSwitcher {
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.basemapImg {
+  margin: 10px 5px;
+  text-align: center;
+}
+
+.basemapImg:hover {
+  transform: scale(1.15);
+  transition: all 0.5s ease;
+}
+
+
+.leaflet-control-notifications{
+  font-family: 'Rubik', sans-serif;
+}
+.leaflet-notification-title{
+  font-size: 1.2rem;
+}
+.leaflet-notification-message{
+  font-size: 1.1rem;
+}
+
+
+
+
+.bold {
+  font-weight: 600 !important;
+}
+
+.label-capas{
+  font-size: 1.1rem;
+  margin-top: 15px;
+}
+
+.btn-comun {
+  font-size: 1.1rem;
+  color: #247461;
+  background: #ffffff;
+  border-color: #247461;
+}
+.btn-comun:hover {
+  color: #ffffff;
+  background: #247461;
+  border-color: #247461;
+}

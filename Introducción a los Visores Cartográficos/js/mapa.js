@@ -96,4 +96,5 @@
     map.on('click', onMapClick);
     
   });
+
 })();
