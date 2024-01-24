@@ -7,7 +7,7 @@ var notification;
 var markers = L.markerClusterGroup();
 
 const firebaseConfig = {
-
+ // Para que funcione el visor debe añadir estos datos 
 };
 
 // Initialize Firebase
